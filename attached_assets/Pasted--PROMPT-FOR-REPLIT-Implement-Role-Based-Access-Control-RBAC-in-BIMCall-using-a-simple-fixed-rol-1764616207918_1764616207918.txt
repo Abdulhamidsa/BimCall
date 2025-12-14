@@ -1,0 +1,186 @@
+🔷 PROMPT FOR REPLIT
+
+Implement Role-Based Access Control (RBAC) in BIMCall using a simple fixed role model (no custom role builder UI).
+
+Roles to implement:
+
+BIM_MANAGER (global admin, full access across all projects + KPIs)
+
+BIM_PROJECT_MANAGER (full access inside assigned projects only, incl. meetings & minutes)
+
+BIM_COORDINATOR (project-level operator: add/edit points, attachments, statuses, attendance)
+
+BIM_DESIGNER
+
+ENGINEER (same permissions as BIM_DESIGNER: can edit only assigned points + upload attachments + comments)
+
+PROJECT_MANAGER (contractor side: project-level, company-filtered view of points, company KPIs only)
+
+DESIGN_MANAGER (review role: view all meetings and points in assigned projects, comment + attachments only)
+
+VIEWER (read-only)
+
+Permission rules
+
+Implement a permission map (hardcoded, no UI for permissions editing).
+
+Meetings:
+
+Create / Edit / Close meetings:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+Send minutes:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+Coordination Points:
+
+Create points:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+BIM_COORDINATOR
+
+Edit any point:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+BIM_COORDINATOR
+
+Edit assigned point only:
+
+BIM_DESIGNER
+
+ENGINEER
+
+Assign points:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+Attachments:
+
+Upload:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+BIM_COORDINATOR
+
+BIM_DESIGNER
+
+ENGINEER
+
+PROJECT_MANAGER
+
+DESIGN_MANAGER
+
+Comments:
+
+Allowed:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+BIM_COORDINATOR
+
+BIM_DESIGNER
+
+ENGINEER
+
+PROJECT_MANAGER
+
+DESIGN_MANAGER
+
+Attendance:
+
+Edit:
+
+BIM_MANAGER
+
+BIM_PROJECT_MANAGER
+
+BIM_COORDINATOR
+
+Project Access Rules
+
+All users must be assigned to projects via project_users.
+
+No user can see or interact with projects they are not assigned to.
+
+BIM_MANAGER can access all projects.
+
+BIM_PROJECT_MANAGER gets access only to projects assigned by BIM_MANAGER.
+
+Contractor-Level Filtering
+
+PROJECT_MANAGER users can only see:
+
+Points linked to their company.
+
+KPIs filtered to their company on each project.
+
+KPIs Access
+
+BIM_MANAGER:
+
+Full global KPI dashboard (all projects)
+
+BIM_PROJECT_MANAGER:
+
+KPI dashboard for his assigned projects only
+
+PROJECT_MANAGER:
+
+KPI dashboard showing only his company performance inside each assigned project
+
+Technical Implementation
+
+Use:
+
+Roles as Enum
+
+Permission middleware:
+
+requireRole(["ROLE_A", "ROLE_B"])
+
+
+Object-level checks:
+
+project membership
+
+assignment ownership
+
+company filtering for contractor PM
+
+Database additions
+
+Add tables / fields:
+
+roles
+
+user_roles
+
+project_users
+
+users.company_id
+
+Frontend
+
+Add role selection dropdown in user management.
+
+Hide/disable buttons depending on role.
+
+Add role badge next to username.

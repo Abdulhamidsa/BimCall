@@ -54,6 +54,7 @@ waitForPort = 5000
 [agent]
 mockupState = "FULLSTACK"
 integrations = ["google-mail:1.0.0", "outlook:1.0.0", "google-calendar:1.0.0"]
+expertMode = true
 
 [userenv]
 
